@@ -1,5 +1,6 @@
 pandas==1.5.3
-matplotlib
-folium
-streamlit
-requests
+numpy==1.25.2
+matplotlib>=3.7
+folium>=0.14
+streamlit>=1.24
+requests>=2.31
