@@ -13,9 +13,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.10
+          python-version: 3.14
       - name: Install dependencies
-        run: pip install requirement.txt
+        # 安裝 requirements.txt，不會拉 pyarrow
+        run: pip install -r requirement.txt
         
       - name: Fetch YouBike data
         run: python fetch_and_process.py
