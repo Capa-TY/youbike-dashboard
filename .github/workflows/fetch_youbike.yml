@@ -15,8 +15,6 @@ jobs:
         with:
           python-version: 3.14
       - name: Install dependencies
-        run: pip install pandas requests
-      - name: Install dependencies
         run: pip install -r requirement.txt
       - name: Fetch YouBike data
         run: python fetch_and_process.py
