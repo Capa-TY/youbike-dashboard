@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: pip install pandas requests
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirement.txt
       - name: Fetch YouBike data
         run: python fetch_and_process.py
       - name: Commit & Push CSV
