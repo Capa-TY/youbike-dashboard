@@ -164,7 +164,7 @@ with col1:
     # 更新地圖設置
         fig.update_layout(
         mapbox_style="open-street-map",  # 使用開放街圖樣式
-        mapbox_zoom=14,  # 初始縮放級別
+        mapbox_zoom=13,  # 初始縮放級別
         mapbox_center_lat = df_top['latitude'].mean(),
         mapbox_center_lon = df_top['longitude'].mean(),
         showlegend=False
