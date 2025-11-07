@@ -147,19 +147,28 @@ with col1:
     # st_folium(m, width=800, height=500)
     if not df_top.empty:
     # 建立 Plotly 地圖
-        fig = px.scatter_mapbox(df_top,
-                            lat="latitude", 
-                            lon="longitude",
-                            hover_name="sna", 
-                            hover_data=["available_rent_bikes", "available_return_bikes", "ar"],
-                            size="available_rent_bikes",  # 圓圈大小
-                            size_max=50,  # 最大圓圈大小
-                            color="available_rent_bikes",  # 顏色對應可借車數
-                            color_continuous_scale="Agsunset",  # 顏色漸層
-                            title="YouBike 站點",
-                            height=700,  # 設定地圖的高度
-                            width=1000   # 設定地圖的寬度
-                            )
+
+        fig = px.scatter_mapbox(
+            df_top,
+            lat="latitude",
+            lon="longitude",
+            hover_name="sna",  # 站名
+            hover_data={
+                "available_rent_bikes": True,  # 顯示可借
+                "available_return_bikes": True,  # 顯示可還
+                "ar": True,  # 顯示地址
+                "latitude": False,  # 不顯示經緯度
+                "longitude": False  # 不顯示經緯度
+            },
+            size="available_rent_bikes",  # 圓圈大小
+            size_max=50,
+            color="available_rent_bikes",
+            color_continuous_scale="Agsunset",
+            title=f"{selected_area} YouBike 站點地圖",
+            height=800,   # ✅ 放大地圖高度
+            width=1200    # ✅ 放大地圖寬度
+        )
+
 
     # 更新地圖設置
         fig.update_layout(
@@ -256,28 +265,3 @@ with col3:
 
     st.plotly_chart(fig, use_container_width=True,width=700)
 
-
-
-
-
-
-
-# df['hour'] = pd.to_datetime(df['mday']).dt.hour
-# df['weekday'] = pd.to_datetime(df['mday']).dt.weekday
-
-# # 選站點
-# station = st.selectbox("選擇站點", df['sna'].unique())
-# df_station = df[df['sna'] == station]
-
-# # 建立簡單模型
-# X = df_station[['hour', 'weekday', 'available_rent_bikes', 'available_return_bikes']]
-# y = df_station['available_rent_bikes'].shift(-1).fillna(method='ffill').fillna(0)  # 預測下一小時
-
-# model = LinearRegression()
-# model.fit(X, y)
-
-# # 預測
-# latest = X.iloc[-1:]
-# pred = model.predict(latest)[0]
-# st.write(f"目前可借車數: {latest['available_rent_bikes'].values[0]}")
-# st.write(f"預測下一小時可借車數: {int(pred)}")
