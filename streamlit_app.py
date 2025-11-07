@@ -113,16 +113,16 @@ with col1:
     st.subheader("🗺️ 地圖視覺化")
     st.write("圓圈大小代表可借車輛多寡(可點擊查看)")
 
-     if not df_top.empty:
+    if not df_top.empty:
          center_lat = df_top['latitude'].astype(float).mean()
          center_lng = df_top['longitude'].astype(float).mean()
-     else:
+    else:
          center_lat = df_area['latitude'].astype(float).mean()
          center_lng = df_area['longitude'].astype(float).mean()
 
-     m = folium.Map(location=[center_lat, center_lng], zoom_start=14)
+    m = folium.Map(location=[center_lat, center_lng], zoom_start=14)
 
-     for _, row in df_top.iterrows():
+    for _, row in df_top.iterrows():
          folium.CircleMarker(
              location=[float(row['latitude']), float(row['longitude'])],
              radius=row['available_rent_bikes'] * 0.5 + 3,
@@ -143,7 +143,7 @@ with col1:
              fill_opacity=0.6
          ).add_to(m)
 
-     st_folium(m, width=800, height=500)
+    st_folium(m, width=800, height=500)
 
 
     
