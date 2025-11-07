@@ -254,7 +254,7 @@ with col3:
         xaxis_tickangle=-45
     )
 
-    st.plotly_chart(fig, use_container_width=True,width=500)
+    st.plotly_chart(fig, use_container_width=True,width=700)
 
 
 
