@@ -165,8 +165,8 @@ with col1:
             color="available_rent_bikes",
             color_continuous_scale="Agsunset",
             title=f"{selected_area} YouBike 站點地圖",
-            height=800,   # ✅ 放大地圖高度
-            width=1200    # ✅ 放大地圖寬度
+            height=1000,   # ✅ 放大地圖高度
+            width=1000    # ✅ 放大地圖寬度
         )
         #自訂hover顯示文字
         fig.update_traces(
