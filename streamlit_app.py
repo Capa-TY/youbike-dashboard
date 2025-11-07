@@ -6,7 +6,7 @@ import platform
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 import requests
-from sklearn.linear_model import LinearRegression
+#from sklearn.linear_model import LinearRegression
 import math
 import plotly.graph_objects as go
 
