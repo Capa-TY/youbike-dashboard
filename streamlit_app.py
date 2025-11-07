@@ -247,7 +247,7 @@ with col3:
 
     # 設定圖表布局
     fig.update_layout(
-        title='各行政區平均可借/可還車數',
+        title='各行政區平均可借/可還車數(可點擊查看)',
         xaxis_title='行政區',
         yaxis_title='平均數量',
         barmode='group',  # 並排柱狀
