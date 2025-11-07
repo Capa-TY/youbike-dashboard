@@ -147,7 +147,7 @@ with col1:
     # st_folium(m, width=800, height=500)
     if not df_top.empty:
     # 建立 Plotly 地圖
-    fig = px.scatter_mapbox(df_top,
+        fig = px.scatter_mapbox(df_top,
                             lat="latitude", 
                             lon="longitude",
                             hover_name="sna", 
@@ -160,18 +160,18 @@ with col1:
                             )
 
     # 更新地圖設置
-    fig.update_layout(
+        fig.update_layout(
         mapbox_style="open-street-map",  # 使用開放街圖樣式
         mapbox_zoom=12,  # 初始縮放級別
         mapbox_center_lat = df_top['latitude'].mean(),
         mapbox_center_lon = df_top['longitude'].mean(),
         showlegend=False
-    )
+        )
 
     # 顯示 Plotly 地圖
-    st.plotly_chart(fig, use_container_width=True)
-else:
-    st.warning("無可顯示的站點，請檢查過濾條件！")
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.warning("無可顯示的站點，請檢查過濾條件！")
 
     
 
