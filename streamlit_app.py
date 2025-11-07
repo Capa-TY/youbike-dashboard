@@ -113,37 +113,37 @@ with col1:
     st.subheader("🗺️ 地圖視覺化")
     st.write("圓圈大小代表可借車輛多寡(可點擊查看)")
 
-    if not df_top.empty:
-         center_lat = df_top['latitude'].astype(float).mean()
-         center_lng = df_top['longitude'].astype(float).mean()
-    else:
-         center_lat = df_area['latitude'].astype(float).mean()
-         center_lng = df_area['longitude'].astype(float).mean()
+    # if not df_top.empty:
+    #      center_lat = df_top['latitude'].astype(float).mean()
+    #      center_lng = df_top['longitude'].astype(float).mean()
+    # else:
+    #      center_lat = df_area['latitude'].astype(float).mean()
+    #      center_lng = df_area['longitude'].astype(float).mean()
 
-    m = folium.Map(location=[center_lat, center_lng], zoom_start=14)
+    # m = folium.Map(location=[center_lat, center_lng], zoom_start=14)
 
-    for _, row in df_top.iterrows():
-         folium.CircleMarker(
-             location=[float(row['latitude']), float(row['longitude'])],
-             radius=row['available_rent_bikes'] * 0.5 + 3,
-             popup=folium.Popup(
-                 f'<div style="font-size: 16px; font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 10px; border-radius: 10px;">'# 加上這一行來設定字體大小
-                 f"📍{row['sna']}<br>"
-                 f"🚲 可借車數：{row['available_rent_bikes']}<br>"
-                 f"🅿️ 可還車位：{row['available_return_bikes']}<br>"
-                 f"📫 地址：{row['ar']}"
-                 f'</div>',
-                 max_width=600,  # 最大寬度
-                 min_width=300,  # 最小寬度
-                 max_height=400   # 最大高度
-             ),
-             color='blue',
-             fill=True,
-             fill_color='cyan',
-             fill_opacity=0.6
-         ).add_to(m)
+    # for _, row in df_top.iterrows():
+    #      folium.CircleMarker(
+    #          location=[float(row['latitude']), float(row['longitude'])],
+    #          radius=row['available_rent_bikes'] * 0.5 + 3,
+    #          popup=folium.Popup(
+    #              f'<div style="font-size: 16px; font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 10px; border-radius: 10px;">'# 加上這一行來設定字體大小
+    #              f"📍{row['sna']}<br>"
+    #              f"🚲 可借車數：{row['available_rent_bikes']}<br>"
+    #              f"🅿️ 可還車位：{row['available_return_bikes']}<br>"
+    #              f"📫 地址：{row['ar']}"
+    #              f'</div>',
+    #              max_width=600,  # 最大寬度
+    #              min_width=300,  # 最小寬度
+    #              max_height=400   # 最大高度
+    #          ),
+    #          color='blue',
+    #          fill=True,
+    #          fill_color='cyan',
+    #          fill_opacity=0.6
+    #      ).add_to(m)
 
-    st_folium(m, width=800, height=500)
+    # st_folium(m, width=800, height=500)
 
 
     
