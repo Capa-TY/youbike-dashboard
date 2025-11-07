@@ -121,7 +121,7 @@ with col1:
                 f"🚲 可借車數：{row['available_rent_bikes']}<br>"
                 f"🅿️ 可還車位：{row['available_return_bikes']}<br>"
                 f"📫 地址：{row['ar']}"
-                f'</div>'
+                f'</div>',
                 max_width=600,  # 最大寬度
                 min_width=300,  # 最小寬度
                 max_height=400   # 最大高度
