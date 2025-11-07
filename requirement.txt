@@ -1,9 +1,8 @@
 pandas==1.5.3
 numpy==1.25.2
 matplotlib>=3.7
-folium
 streamlit>=1.24
 requests>=2.31
-streamlit-folium
 plotly
-
+folium==0.17.1
+streamlit-folium==0.20.0
