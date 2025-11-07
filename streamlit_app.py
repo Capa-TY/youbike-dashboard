@@ -45,12 +45,11 @@ df = pd.DataFrame(data)  # 轉成 DataFrame
 # --------------------------
 # 行政區選單
 # --------------------------
-
+st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 df["mday"] = pd.to_datetime(df["mday"])
 st.title("🚴Youbike站點分析系統")
 st.write("資料更新時間：", df["mday"].max())
 
-st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 col1, col2, col3 = st.columns([5,0.002,5])  # 左右欄 + 小空隙
 # --------------------------
 # 行政區選單
