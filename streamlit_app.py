@@ -127,7 +127,7 @@ with col1:
             fill_opacity=0.6
         ).add_to(m)
 
-    st_folium(m, width=700, height=500)
+    st_folium(m, width=800, height=500)
 
 with col2:
     pass  # 空白欄
