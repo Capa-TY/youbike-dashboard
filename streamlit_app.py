@@ -127,7 +127,7 @@ with col1:
             location=[float(row['latitude']), float(row['longitude'])],
             radius=row['available_rent_bikes'] * 0.5 + 3,
             popup=folium.Popup(
-                f'<div style="font-size: 16px; font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 10px; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">'# 加上這一行來設定字體大小
+                f'<div style="font-size: 16px; font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 10px; border-radius: 10px;">'# 加上這一行來設定字體大小
                 f"📍{row['sna']}<br>"
                 f"🚲 可借車數：{row['available_rent_bikes']}<br>"
                 f"🅿️ 可還車位：{row['available_return_bikes']}<br>"
