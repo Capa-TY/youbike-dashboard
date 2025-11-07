@@ -87,7 +87,7 @@ with col1:
             st.warning("查無相關站點，請換個關鍵字試試！")
         else:
             st.success(f"找到 {len(df_display)} 個相關站點")
-            st.dataframe(df_display[['sna_display', 'sarea', 'available_rent_bikes', 'available_return_bikes']])
+            st.dataframe(df_display[['df_display', 'sarea', 'available_rent_bikes', 'available_return_bikes']])
     else:
         df_display = df_area
 
