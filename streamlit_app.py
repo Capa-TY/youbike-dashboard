@@ -116,12 +116,15 @@ with col1:
             location=[float(row['latitude']), float(row['longitude'])],
             radius=row['available_rent_bikes'] * 0.5 + 3,
             popup=(
-                f'<div style="font-size: 18px; font-family: Arial, sans-serif;">'  # 加上這一行來設定字體大小
+                f'<div style="font-size: 18px; font-family: Arial, sans-serif; border-radius: 10px;box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">'  # 加上這一行來設定字體大小
                 f"📍{row['sna']}<br>"
                 f"🚲 可借車數：{row['available_rent_bikes']}<br>"
                 f"🅿️ 可還車位：{row['available_return_bikes']}<br>"
                 f"📫 地址：{row['ar']}"
                 f'</div>'
+                max_width=600,  # 最大寬度
+                min_width=300,  # 最小寬度
+                max_height=400   # 最大高度
             ),
             color='blue',
             fill=True,
