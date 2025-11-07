@@ -48,7 +48,7 @@ setup_font()
 #df = pd.read_csv("data/youbike_data.csv")
 
 url = "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json"
-response = requests.get(url)
+response = requests.get(url, timeout=10)
 data = response.json()  # 轉成 Python list/dict
 
 df = pd.DataFrame(data)  # 轉成 DataFrame
