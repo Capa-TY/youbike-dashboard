@@ -81,7 +81,7 @@ with col1:
         df_display = df[df['sna_normalized'].str.contains(keyword_norm, case=False, na=False)]
 
         # 去掉前面的 "YouBike2.0_" 或 "YouBike2.0 " 文字
-        df_display['sna_display'] = df_display['sna'].str.replace(r'YouBike2\.0[_ ]?', '', regex=True)
+        #df_display['sna_display'] = df_display['sna'].str.replace(r'YouBike2\.0[_ ]?', '', regex=True)
 
         if df_display.empty:
             st.warning("查無相關站點，請換個關鍵字試試！")
