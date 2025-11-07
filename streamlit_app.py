@@ -172,11 +172,21 @@ with col1:
 
     # 更新地圖設置
         fig.update_layout(
-        mapbox_style="open-street-map",  # 使用開放街圖樣式
-        mapbox_zoom=13,  # 初始縮放級別
-        mapbox_center_lat = df_top['latitude'].mean(),
-        mapbox_center_lon = df_top['longitude'].mean(),
-        showlegend=False
+            mapbox_style="open-street-map",  # 使用開放街圖樣式
+            mapbox_zoom=13,  # 初始縮放級別
+            mapbox_center_lat = df_top['latitude'].mean(),
+            mapbox_center_lon = df_top['longitude'].mean(),
+            showlegend=False,
+            # 🎨 顏色比例尺放到下方
+            coloraxis_colorbar=dict(
+                title="可借車數",
+                orientation='h',  # 橫向排列
+                y=-0.25,          # 向下移動（可依需求微調 -0.3 ~ -0.15）
+                x=0.5,            # 水平置中
+                xanchor='center',
+                len=0.6,          # 比例尺長度
+                thickness=15      # 比例尺厚度
+                )
         )
 
     # 顯示 Plotly 地圖
