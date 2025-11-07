@@ -144,7 +144,25 @@ with col1:
     #      ).add_to(m)
 
     # st_folium(m, width=800, height=500)
+    if not df_top.empty:
+        center_lat = df_top['latitude'].astype(float).mean()
+        center_lng = df_top['longitude'].astype(float).mean()
+    else:
+        center_lat = df_area['latitude'].astype(float).mean()
+        center_lng = df_area['longitude'].astype(float).mean()
 
+    # 初始化 Folium 地圖
+    m = folium.Map(location=[center_lat, center_lng], zoom_start=14)
+
+    # 顯示前 10 個站點
+    for _, row in df_top.iterrows():
+        folium.Marker(
+            location=[float(row['latitude']), float(row['longitude'])],
+            popup=f"📍 {row['sna']}<br>可借車數：{row['available_rent_bikes']}<br>可還車位：{row['available_return_bikes']}<br>地址：{row['ar']}"
+        ).add_to(m)
+
+    # 顯示地圖
+    st_folium(m, width=800, height=500)
 
     
 
