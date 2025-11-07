@@ -177,7 +177,24 @@ with col1:
 
     
 
+    df = df.dropna(subset=['latitude', 'longitude', 'available_rent_bikes'])
 
+    # 使用 Plotly Express 來繪製熱力圖
+    fig = px.density_mapbox(df, 
+                            lat="latitude", 
+                            lon="longitude", 
+                            z="available_rent_bikes", 
+                            radius=10,  # 圓點大小
+                            center=dict(lat=df['latitude'].mean(), lon=df['longitude'].mean()),  # 地圖中心
+                            zoom=12,  # 地圖縮放
+                            color_continuous_scale="Viridis",  # 熱力圖的顏色
+                            title="YouBike 站點可借車數熱力圖")
+    
+    # 設定 Mapbox 風格
+    fig.update_layout(mapbox_style="open-street-map")
+    
+    # 顯示圖表
+    fig.show()
 
 with col2:
     pass  # 空白欄
