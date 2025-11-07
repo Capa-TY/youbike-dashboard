@@ -1,7 +1,7 @@
 pandas==1.5.3
 numpy==1.25.2
 matplotlib>=3.7
-folium>=0.14
+folium
 streamlit>=1.24
 requests>=2.31
 streamlit-folium
