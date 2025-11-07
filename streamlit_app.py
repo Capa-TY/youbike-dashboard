@@ -155,7 +155,7 @@ with col1:
                             size="available_rent_bikes",  # 圓圈大小
                             size_max=50,  # 最大圓圈大小
                             color="available_rent_bikes",  # 顏色對應可借車數
-                            color_continuous_scale="Purples",  # 顏色漸層
+                            color_continuous_scale="Agsunset",  # 顏色漸層
                             title="YouBike 站點",
                             height=700,  # 設定地圖的高度
                             width=1000   # 設定地圖的寬度
