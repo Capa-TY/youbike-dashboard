@@ -10,25 +10,35 @@ import requests
 import math
 import plotly.graph_objects as go
 
+# def setup_font():
+#     system = platform.system()
+#     if system == "Darwin":  # macOS
+#         plt.rcParams['font.sans-serif'] = ['PingFang TC', 'Heiti TC', 'Arial Unicode MS']
+#     elif system == "Windows":
+#         plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei', 'SimHei', 'Arial Unicode MS']
+#     else:  # Linux / Colab
+#         font_path = '/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc'
+#         try:
+#             font_manager.fontManager.addfont(font_path)
+#             plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']
+#         except FileNotFoundError:
+#             plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
+#             print("⚠️ 找不到 Noto CJK 字型，中文可能無法顯示。")
+
+#     plt.rcParams['axes.unicode_minus'] = False
+#     print(f"✅ 已設定字型：{plt.rcParams['font.sans-serif'][0]}")
+
+# # 初始化字型
+# setup_font()
+
 def setup_font():
-    system = platform.system()
-    if system == "Darwin":  # macOS
-        plt.rcParams['font.sans-serif'] = ['PingFang TC', 'Heiti TC', 'Arial Unicode MS']
-    elif system == "Windows":
-        plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei', 'SimHei', 'Arial Unicode MS']
-    else:  # Linux / Colab
-        font_path = '/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc'
-        try:
-            font_manager.fontManager.addfont(font_path)
-            plt.rcParams['font.sans-serif'] = ['Noto Sans CJK TC']
-        except FileNotFoundError:
-            plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
-            print("⚠️ 找不到 Noto CJK 字型，中文可能無法顯示。")
+    try:
+        plt.rcParams['font.sans-serif'] = ['DejaVu Sans']  # Streamlit Cloud 內建
+        plt.rcParams['axes.unicode_minus'] = False
+        print(f"✅ 已設定字型：{plt.rcParams['font.sans-serif'][0]}")
+    except Exception as e:
+        print("⚠️ 字型設定失敗:", e)
 
-    plt.rcParams['axes.unicode_minus'] = False
-    print(f"✅ 已設定字型：{plt.rcParams['font.sans-serif'][0]}")
-
-# 初始化字型
 setup_font()
 
 
