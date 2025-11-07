@@ -111,7 +111,7 @@ with col1:
     # 🗺️ Folium 地圖
     # --------------------------
     st.subheader("🗺️ 地圖視覺化")
-    st.write("圓圈大小代表可借車輛多寡")
+    st.write("圓圈大小代表可借車輛多寡(可點擊查看)")
 
     if not df_top.empty:
         center_lat = df_top['latitude'].astype(float).mean()
