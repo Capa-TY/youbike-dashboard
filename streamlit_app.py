@@ -168,7 +168,13 @@ with col1:
             height=800,   # ✅ 放大地圖高度
             width=1200    # ✅ 放大地圖寬度
         )
-
+        #自訂hover顯示文字
+        fig.update_traces(
+            hovertemplate="<b>%{hovertext}</b><br><br>" +
+                        "🚴可借車數：%{customdata[0]} 台<br>" +
+                        "🅿️可還車數：%{customdata[1]} 台<br>" +
+                        "📍地址：%{customdata[2]}<extra></extra>"
+        )
 
     # 更新地圖設置
         fig.update_layout(
@@ -181,7 +187,7 @@ with col1:
             coloraxis_colorbar=dict(
                 title="可借車數",
                 orientation='h',  # 橫向排列
-                y=-0.25,          # 向下移動（可依需求微調 -0.3 ~ -0.15）
+                y=-0.1,          # 向下移動（可依需求微調 -0.3 ~ -0.15）
                 x=0.5,            # 水平置中
                 xanchor='center',
                 len=0.6,          # 比例尺長度
