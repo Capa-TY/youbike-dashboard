@@ -106,7 +106,7 @@ with col1:
     top_n = 10
     df_top = df_display.head(top_n)
     st.dataframe(df_top[['sarea', 'sna', 'available_rent_bikes', 'available_return_bikes', 'ar']])
-
+    st.map(df_top)
     # --------------------------
     # 🗺️ Folium 地圖
     # --------------------------
