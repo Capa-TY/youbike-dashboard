@@ -157,12 +157,14 @@ with col1:
                             color="available_rent_bikes",  # 顏色對應可借車數
                             color_continuous_scale="Blues",  # 顏色漸層
                             title="YouBike 站點"
+                            height=600,  # 設定地圖的高度
+                            width=900   # 設定地圖的寬度
                             )
 
     # 更新地圖設置
         fig.update_layout(
         mapbox_style="open-street-map",  # 使用開放街圖樣式
-        mapbox_zoom=18,  # 初始縮放級別
+        mapbox_zoom=14,  # 初始縮放級別
         mapbox_center_lat = df_top['latitude'].mean(),
         mapbox_center_lon = df_top['longitude'].mean(),
         showlegend=False
