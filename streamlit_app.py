@@ -58,7 +58,7 @@ df = pd.DataFrame(data)  # 轉成 DataFrame
 # --------------------------
 st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 df["mday"] = pd.to_datetime(df["mday"])
-st.title("🚴Youbike站點分析系統")
+st.title("🚴即時Youbike站點分析系統")
 st.write("資料更新時間：", df["mday"].max())
 
 col1, col2, col3 = st.columns([5,0.002,5])  # 左右欄 + 小空隙
@@ -233,6 +233,7 @@ with col3:
             for area, count in top3_no_space.items():
                 st.write(f"{area}：{count} 個站點")
         st.dataframe(no_space[['sarea', 'sna', 'ar']])
+
 
 
     st.subheader("⭐ 收藏常用站點")
