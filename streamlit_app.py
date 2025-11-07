@@ -212,7 +212,17 @@ with col3:
 
     no_bikes = df[df['available_rent_bikes'] == 0]
     no_space = df[df['available_return_bikes'] == 0]
+    # 計算最多無可借車的行政區
+    if not no_bikes.empty:
+        top_area_no_bikes = no_bikes['sarea'].value_counts().idxmax()
+    else:
+        top_area_no_bikes = "無"
 
+    # 計算最多無可還車位的行政區
+    if not no_space.empty:
+        top_area_no_space = no_space['sarea'].value_counts().idxmax()
+    else:
+        top_area_no_space = "無"
     col1, col2 = st.columns(2)
     with col1:
         st.error(f"🚫 無可借車站點：{len(no_bikes)} 個")
