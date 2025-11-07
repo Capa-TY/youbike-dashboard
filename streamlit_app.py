@@ -9,6 +9,7 @@ import requests
 #from sklearn.linear_model import LinearRegression
 import math
 import plotly.graph_objects as go
+import plotly.express as px
 
 # def setup_font():
 #     system = platform.system()
@@ -145,24 +146,32 @@ with col1:
 
     # st_folium(m, width=800, height=500)
     if not df_top.empty:
-        center_lat = df_top['latitude'].astype(float).mean()
-        center_lng = df_top['longitude'].astype(float).mean()
-    else:
-        center_lat = df_area['latitude'].astype(float).mean()
-        center_lng = df_area['longitude'].astype(float).mean()
+    # 建立 Plotly 地圖
+    fig = px.scatter_mapbox(df_top,
+                            lat="latitude", 
+                            lon="longitude",
+                            hover_name="sna", 
+                            hover_data=["available_rent_bikes", "available_return_bikes", "ar"],
+                            size="available_rent_bikes",  # 圓圈大小
+                            size_max=50,  # 最大圓圈大小
+                            color="available_rent_bikes",  # 顏色對應可借車數
+                            color_continuous_scale="Blues",  # 顏色漸層
+                            title="YouBike 站點"
+                            )
 
-    # 初始化 Folium 地圖
-    m = folium.Map(location=[center_lat, center_lng], zoom_start=14)
+    # 更新地圖設置
+    fig.update_layout(
+        mapbox_style="open-street-map",  # 使用開放街圖樣式
+        mapbox_zoom=12,  # 初始縮放級別
+        mapbox_center_lat = df_top['latitude'].mean(),
+        mapbox_center_lon = df_top['longitude'].mean(),
+        showlegend=False
+    )
 
-    # 顯示前 10 個站點
-    for _, row in df_top.iterrows():
-        folium.Marker(
-            location=[float(row['latitude']), float(row['longitude'])],
-            popup=f"📍 {row['sna']}<br>可借車數：{row['available_rent_bikes']}<br>可還車位：{row['available_return_bikes']}<br>地址：{row['ar']}"
-        ).add_to(m)
-
-    # 顯示地圖
-    st_folium(m, width=800, height=500)
+    # 顯示 Plotly 地圖
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.warning("無可顯示的站點，請檢查過濾條件！")
 
     
 
