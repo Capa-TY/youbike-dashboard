@@ -83,7 +83,7 @@ url_weather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Aut
 
 
 
-@st.cache_data(ttl=600)
+
 def get_weather():
     try:
         data = requests.get(url_weather, timeout=10).json()
