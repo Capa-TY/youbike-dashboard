@@ -48,23 +48,17 @@ url_weather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Aut
 data = requests.get(url_weather)   # 取得 JSON 檔案的內容為文字
 data_json = data.json()    # 轉換成 JSON 格式
 location = data_json['records']['location']   # 取出 location 的內容
-#for i in location:
-    # city = i['locationName']    # 縣市名稱
-    # #time[0]取第 1 筆時間段的預報（也就是「現在這一個時段」）。
-    # wx8 = i['weatherElement'][0]['time'][0]['parameter']['parameterName']    # 天氣現象
-    # pop8 = i['weatherElement'][1]['time'][0]['parameter']['parameterName']   # 降雨機率
-    # mint8 = i['weatherElement'][2]['time'][0]['parameter']['parameterName']  # 最低溫
-    # ci8 = i['weatherElement'][3]['time'][0]['parameter']['parameterName']    # 舒適度
-    # maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
+for i in location:
+    city = i['locationName']    # 縣市名稱
+    #time[0]取第 1 筆時間段的預報（也就是「現在這一個時段」）。
+    wx8 = i['weatherElement'][0]['time'][0]['parameter']['parameterName']    # 天氣現象
+    pop8 = i['weatherElement'][1]['time'][0]['parameter']['parameterName']   # 降雨機率
+    mint8 = i['weatherElement'][2]['time'][0]['parameter']['parameterName']  # 最低溫
+    ci8 = i['weatherElement'][3]['time'][0]['parameter']['parameterName']    # 舒適度
+    maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
 
-data = requests.get(url_weather,timeout=10).json()
-taipei = data['records']['location'][0]
-wx8 = taipei['weatherElement'][0]['time'][0]['parameter']['parameterName']
-pop8 = taipei['weatherElement'][1]['time'][0]['parameter']['parameterName']
-mint8 = taipei['weatherElement'][2]['time'][0]['parameter']['parameterName']
-ci8 = taipei['weatherElement'][3]['time'][0]['parameter']['parameterName']
-maxt8 = taipei['weatherElement'][4]['time'][0]['parameter']['parameterName']
-res=(f'{taipei}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感{ci8}')
+
+res=(f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感{ci8}')
 
 
 
