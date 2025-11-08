@@ -100,7 +100,7 @@ st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 
 df["mday"] = pd.to_datetime(df["mday"])
 st.title("🚴即時Youbike站點分析系統")
-# st.write(f"資料更新時間：", df["mday"].max())
+# st.write(f"資料更新時間：", df["mday"].ma x())
 # st.write(f"總瀏覽次數: {total_peo}")
 st.markdown(f"資料更新時間：{df['mday'].max()}  |  總瀏覽次數: {total_peo}")
 #unsafe_allow_html=True 允許顯示 HTML 標籤。你可以用 HTML 控制：font-size: 調整字體大小。font-weight: 設定粗細（例如 bold 或 600）。
