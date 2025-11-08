@@ -76,7 +76,8 @@ st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 df["mday"] = pd.to_datetime(df["mday"])
 st.title("🚴即時Youbike站點分析系統")
 st.write("資料更新時間：", df["mday"].max())
-st.markdown(f"<h3 style='color:yellow; font-size:24px;'>📢天氣預報:{res}</h3>", unsafe_allow_html=True)
+#unsafe_allow_html=True 允許顯示 HTML 標籤。你可以用 HTML 控制：font-size: 調整字體大小。font-weight: 設定粗細（例如 bold 或 600）。
+st.markdown(f"<h3 style='color:#707070; font-size:20px;'>📢天氣預報:{res}</h3>", unsafe_allow_html=True)
 #st.write("📢天氣預報:"+res)
 
 
