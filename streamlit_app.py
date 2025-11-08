@@ -10,6 +10,7 @@ import requests
 import math
 import plotly.graph_objects as go
 import plotly.express as px
+import os
 
 # def setup_font():
 #     system = platform.system()
@@ -60,6 +61,26 @@ for i in location:
 
 res=(f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感{ci8}')
 
+#人數統計
+file_name = "total_peo.txt"
+# 如果檔案不存在就初始化
+if not os.path.exists(file_name):
+    with open(file_name, "w") as f:
+        f.write("0")
+
+# 讀取總數
+with open(file_name, "r") as f:
+    total_peo = int(f.read())
+
+# +1
+total_peo += 1
+
+# 回寫檔案
+with open(file_name, "w") as f:
+    f.write(str(total_peo))
+
+
+
 
 
 # --------------------------
@@ -76,9 +97,12 @@ df = pd.DataFrame(data)  # 轉成 DataFrame
 # 行政區選單
 # --------------------------
 st.set_page_config(page_title="YouBike Dashboard", layout="wide")
+
 df["mday"] = pd.to_datetime(df["mday"])
 st.title("🚴即時Youbike站點分析系統")
-st.write("資料更新時間：", df["mday"].max())
+# st.write(f"資料更新時間：", df["mday"].max())
+# st.write(f"總瀏覽次數: {total_peo}")
+st.markdown(f"資料更新時間：{df['mday'].max()}  |  總瀏覽次數: {total_peo}")
 #unsafe_allow_html=True 允許顯示 HTML 標籤。你可以用 HTML 控制：font-size: 調整字體大小。font-weight: 設定粗細（例如 bold 或 600）。
 st.markdown(f"<h3 style='color:#97CBFF; font-size:20px;'>📢天氣預報:{res}</h3>", unsafe_allow_html=True)
 #st.write("📢天氣預報:"+res)
