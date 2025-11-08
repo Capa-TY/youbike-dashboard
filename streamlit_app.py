@@ -61,39 +61,26 @@ url_weather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Aut
 
 
 
-# 1. 使用 st.cache_data 快取6小時
-# @st.cache_data(ttl=21600)
-# def get_weather():
-#     data = requests.get(url_weather).json()
-#     taipei = data['records']['location'][0]
-#     wx8 = taipei['weatherElement'][0]['time'][0]['parameter']['parameterName']
-#     pop8 = taipei['weatherElement'][1]['time'][0]['parameter']['parameterName']
-#     mint8 = taipei['weatherElement'][2]['time'][0]['parameter']['parameterName']
-#     ci8 = taipei['weatherElement'][3]['time'][0]['parameter']['parameterName']
-#     maxt8 = taipei['weatherElement'][4]['time'][0]['parameter']['parameterName']
-#     return f'台北市未來 6 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感 {ci8}'
-
-
-# res=get_weather()
-
-# # 4. 手動刷新按鈕（按下後會清除快取並重新抓 API）
-# if st.button("刷新天氣 "):
-#     get_weather.clear()  # 清除快取
-#     st.experimental_rerun()  # 重新執行頁面
-
-
-
-
 def get_weather():
     try:
         data = requests.get(url_weather, timeout=10).json()
-        taipei = data['records']['location'][0]
+        taipei = data['records']['location'][0]  # 直接取台北市
         wx8 = taipei['weatherElement'][0]['time'][0]['parameter']['parameterName']
-        return f'台北市天氣：{wx8}'
+        pop8 = taipei['weatherElement'][1]['time'][0]['parameter']['parameterName']
+        mint8 = taipei['weatherElement'][2]['time'][0]['parameter']['parameterName']
+        ci8 = taipei['weatherElement'][3]['time'][0]['parameter']['parameterName']
+        maxt8 = taipei['weatherElement'][4]['time'][0]['parameter']['parameterName']
+
+        return f'台北市未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感 {ci8}'
     except Exception as e:
         return f"抓取天氣失敗: {e}"
 
+# 顯示天氣
 st.write(get_weather())
+
+# 手動刷新按鈕
+if st.button("刷新天氣"):
+    st.experimental_rerun()  # 重新執行頁面，重新抓 API
 
 
 # --------------------------
