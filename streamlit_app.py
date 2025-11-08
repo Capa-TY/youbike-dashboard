@@ -77,7 +77,7 @@ def get_weather():
 res=get_weather()
 
 # 4. 手動刷新按鈕（按下後會清除快取並重新抓 API）
-if st.button("刷新天氣"):
+if st.button("刷新天氣 "):
     get_weather.clear()  # 清除快取
     st.experimental_rerun()  # 重新執行頁面
 
