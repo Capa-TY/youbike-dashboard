@@ -76,8 +76,8 @@ st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 df["mday"] = pd.to_datetime(df["mday"])
 st.title("🚴即時Youbike站點分析系統")
 st.write("資料更新時間：", df["mday"].max())
-st.write("📢天氣預報")
-st.write(res)
+st.write("📢天氣預報:"+res)
+
 
 col1, col2, col3 = st.columns([5,0.002,5])  # 左右欄 + 小空隙
 # --------------------------
