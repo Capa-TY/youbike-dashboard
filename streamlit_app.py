@@ -145,7 +145,7 @@ with col1:
 
 
     st.subheader("🏅 排序選項")
-    sort_option = st.radio("選擇排序方式", ["可借車數（多→少）", "可還車位（多→少）"])
+    sort_option = st.radio("選擇排序方式(僅顯示前十名)", ["可借車數（多→少）", "可還車位（多→少）"])
     if sort_option == "可借車數（多→少）":
         df_display = df_display.sort_values(by='available_rent_bikes', ascending=False)
     else:
@@ -153,8 +153,20 @@ with col1:
 
     top_n = 10
     df_top = df_display.head(top_n)
-    st.dataframe(df_top[['sarea', 'sna', 'available_rent_bikes', 'available_return_bikes', 'ar']])
-    #st.map(df_top)
+    #st.dataframe(df_top[['sarea', 'sna', 'available_rent_bikes', 'available_return_bikes', 'ar']])
+    # 假設 df_top 是原始 DataFrame，欄位英文不變
+    top_display = df_top.rename(columns={
+        'sarea': '區域',
+        'sna': '站名',
+        'available_rent_bikes': '可借車數',
+        'available_return_bikes': '可還車數',
+        'ar': '地址'
+    })
+
+    # 只影響顯示
+    st.dataframe(top_display[['區域', '站名', '可借車數', '可還車數', '地址']])
+    #st.dataframe(top_display[['區域', '站名', '可借車數', '可還車數', '地址']].reset_index(drop=True))
+
     # --------------------------
     # 🗺️ Folium 地圖
     # --------------------------
@@ -271,7 +283,17 @@ with col3:
             st.write("前三名行政區：")
             for area, count in top3_no_bikes.items():
                 st.write(f"{area}：{count} 個站點")
-        st.dataframe(no_bikes[['sarea', 'sna', 'ar']])
+
+        nobike_display = no_bikes.rename(columns={
+            'sarea': '區域',
+            'sna': '站名',
+            'ar': '地址'
+        })
+
+        # 只影響顯示
+        st.dataframe(top_display[['區域', '站名','地址']])
+
+        #st.dataframe(no_bikes[['sarea', 'sna', 'ar']])
 
     with col2:
         st.warning(f"🈵 無可還車位站點：{len(no_space)} 個")
@@ -279,7 +301,15 @@ with col3:
             st.write("前三名行政區：")
             for area, count in top3_no_space.items():
                 st.write(f"{area}：{count} 個站點")
-        st.dataframe(no_space[['sarea', 'sna', 'ar']])
+        #st.dataframe(no_space[['sarea', 'sna', 'ar']])
+        nospace_display = no_space.rename(columns={
+            'sarea': '區域',
+            'sna': '站名',
+            'ar': '地址'
+        })
+
+        # 只影響顯示
+        st.dataframe(nospace_display[['區域', '站名','地址']])
 
 
 
