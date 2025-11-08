@@ -79,8 +79,8 @@ def get_weather():
 st.write(get_weather())
 
 # 手動刷新按鈕
-if st.button("刷新天氣"):
-    st.experimental_rerun()  # 重新執行頁面，重新抓 API
+# if st.button("刷新天氣"):
+#     st.experimental_rerun()  # 重新執行頁面，重新抓 API
 
 
 # --------------------------
