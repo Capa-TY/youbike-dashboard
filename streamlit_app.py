@@ -134,7 +134,17 @@ with col1:
             st.warning("查無相關站點，請換個關鍵字試試！")
         else:
             st.success(f"找到 {len(df_display)} 個相關站點")
-            st.dataframe(df_display[['sna', 'sarea', 'available_rent_bikes', 'available_return_bikes']])
+            search_display = df_display.rename(columns={
+                'sarea': '區域',
+                'sna': '站名',
+                'available_rent_bikes': '可借車數',
+                'available_return_bikes': '可還車數',
+                'ar': '地址'
+            })
+
+            # 只影響顯示
+            st.dataframe(search_display[['區域', '站名', '可借車數', '可還車數', '地址']])
+            #st.dataframe(df_display[['sna', 'sarea', 'available_rent_bikes', 'available_return_bikes']])
     else:
         df_display = df_area
 
