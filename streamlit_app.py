@@ -62,16 +62,6 @@ res=(f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} �
 
 
 
-namespace = "capa_youbike"
-
-# 取得並自動 +1
-url_count = f"https://api.countapi.xyz/hit/{namespace}/total_visitors"
-res = requests.get(url_count).json()
-count = res["value"]
-
-# 顯示訪客數
-st.markdown(f"👀 **Total visitors:** {count}")
-
 # --------------------------
 # 讀取 CSV
 # --------------------------
