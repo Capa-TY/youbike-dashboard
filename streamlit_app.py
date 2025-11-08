@@ -43,6 +43,22 @@ def setup_font():
 setup_font()
 
 
+#天氣預報
+url_weather = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-897885FD-7D6F-4343-B7C8-5436A51D02B8&format=JSON&locationName=%E8%87%BA%E5%8C%97%E5%B8%82&sort=time'
+data = requests.get(url_weather)   # 取得 JSON 檔案的內容為文字
+data_json = data.json()    # 轉換成 JSON 格式
+location = data_json['records']['location']   # 取出 location 的內容
+for i in location:
+    city = i['locationName']    # 縣市名稱
+    #time[0]取第 1 筆時間段的預報（也就是「現在這一個時段」）。
+    wx8 = i['weatherElement'][0]['time'][0]['parameter']['parameterName']    # 天氣現象
+    pop8 = i['weatherElement'][1]['time'][0]['parameter']['parameterName']   # 降雨機率
+    mint8 = i['weatherElement'][2]['time'][0]['parameter']['parameterName']  # 最低溫
+    ci8 = i['weatherElement'][3]['time'][0]['parameter']['parameterName']    # 舒適度
+    maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
+res=(f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %')
+
+
 # --------------------------
 # 讀取 CSV
 # --------------------------
@@ -60,6 +76,8 @@ st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 df["mday"] = pd.to_datetime(df["mday"])
 st.title("🚴即時Youbike站點分析系統")
 st.write("資料更新時間：", df["mday"].max())
+
+st.write(res)
 
 col1, col2, col3 = st.columns([5,0.002,5])  # 左右欄 + 小空隙
 # --------------------------
