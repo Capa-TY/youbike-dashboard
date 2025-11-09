@@ -59,9 +59,9 @@ for i in location:
     maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
 
 if int(pop8)>50:
-    res=(f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感{ci8}，出門帶把傘☂️')
+    res=(f'{city}未來 8 小時將{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}，出門記得帶把傘☂️')
 else:
-    res=(f'{city}未來 8 小時{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，降雨機率 {pop8} %，體感{ci8}')
+    res=(f'{city}未來 8 小時將{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
 
 #人數統計
 file_name = "total_peo.txt"
