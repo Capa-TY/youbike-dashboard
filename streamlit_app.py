@@ -99,7 +99,7 @@ df = pd.DataFrame(data)  # 轉成 DataFrame
 st.set_page_config(page_title="YouBike Dashboard", layout="wide")
 
 df["mday"] = pd.to_datetime(df["mday"])
-st.title("🚴即時Youbike站點分析系統")
+st.title("🚴臺北市即時Youbike站點分析系統")
 # st.write(f"資料更新時間：", df["mday"].ma x())
 # st.write(f"總瀏覽次數: {total_peo}")
 st.markdown(f"資料更新時間：{df['mday'].max()}  |  總瀏覽次數: {total_peo}")
@@ -301,7 +301,7 @@ with col3:
         })
 
         # 只影響顯示
-        st.dataframe(top_display[['區域', '站名','地址']])
+        st.dataframe(nobike_display[['區域', '站名','地址']])
 
         #st.dataframe(no_bikes[['sarea', 'sna', 'ar']])
 
