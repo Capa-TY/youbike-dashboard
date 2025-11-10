@@ -459,9 +459,14 @@ with col3:
         df_status,
         names="狀態",
         values="站點數",
-        title="台北市 Ubike 即時可用狀況",
+        title="臺北市 Ubike 即時可用狀況總覽",
         color_discrete_sequence=px.colors.qualitative.Safe#網頁安全色系
     )
 
     # 5️⃣ 顯示圖表
+    fig.update_traces(textposition='auto', textinfo='percent+label')
+    fig.update_layout(#t 代表上方距離 (top)，增加就會讓文字往下移，避免被標題擋到b, l, r 分別是下、左、右距離
+        margin=dict(t=200, b=50, l=50, r=50)  # t=上方距離
+    )
     st.plotly_chart(fig, use_container_width=True)
+    
