@@ -59,9 +59,9 @@ for i in location:
     maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
 
 if int(pop8)>50:
-    res=(f'{city}未來 8 小時將{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}，出門記得帶把傘☂️')
+    res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}，出門記得帶把傘☂️')
 else:
-    res=(f'{city}未來 8 小時將{wx8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
+    res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
 
 #人數統計
 file_name = "total_peo.txt"
@@ -283,6 +283,63 @@ with col3:
 
     no_bikes = df[df['available_rent_bikes'] == 0]
     no_space = df[df['available_return_bikes'] == 0]
+    normal = df[(df['available_rent_bikes'] > 0) & (df['available_return_bikes'] > 0)]
+
+
+        # 統計空站（無車可借）
+    no_bikes_count = no_bikes['sarea'].value_counts().reset_index()
+    no_bikes_count.columns = ['區域', '空站數']
+
+    # 統計滿站（無位可還）
+    no_space_count = no_space['sarea'].value_counts().reset_index()
+    no_space_count.columns = ['區域', '滿站數']
+
+    # --- 空站圓餅圖 --- 圓餅圖百分比plotly會自動算好
+    fig1 = px.pie(
+        no_bikes_count,
+        names='區域',
+        values='空站數',
+        title=f"各區空站比例",
+        color_discrete_sequence=px.colors.qualitative.Pastel,
+        #hole=0.4  # 做成甜甜圈圖
+    )
+    fig1.update_traces(textposition='outside', textinfo='percent+label')#指定文字標籤顯示在圓餅圖的內部，顯示區域和百分比
+    fig1.update_layout(#改整張圖的「版面配置」（例如標題、圖例位置)
+        legend=dict(
+            orientation="h",
+            yanchor="top",
+            y=-1,
+            xanchor="center",
+            x=0.5
+            )
+    )
+
+    # --- 滿站圓餅圖 ---
+    fig2 = px.pie(
+        no_space_count,
+        names='區域',
+        values='滿站數',
+        title=f"各區滿站比例）",
+        color_discrete_sequence=px.colors.qualitative.Pastel,
+        #hole=0.4
+    )
+
+    fig2.update_traces(textposition='outside', textinfo='percent+label')
+
+    #標示移到下方
+    fig2.update_layout(
+        legend=dict(
+            orientation="h",#水平
+            yanchor="top",
+            y=-1.2,#往下移多少
+            xanchor="center",
+            x=0.5
+            )
+    )
+
+
+
+
     # 計算前三名無可借車的行政區
     top3_no_bikes = no_bikes['sarea'].value_counts().head(3)
     # 計算前三名無可還車位的行政區
@@ -291,37 +348,40 @@ with col3:
     col1, col2 = st.columns(2)
     with col1:
         st.error(f"🚫 無可借車站點：{len(no_bikes)} 個")
-        if not top3_no_bikes.empty:
-            st.write("前三名行政區：")
-            for area, count in top3_no_bikes.items():
-                st.write(f"{area}：{count} 個站點")
+        
+        st.plotly_chart(fig1, use_container_width=True)
+        # if not top3_no_bikes.empty:
+        #     st.write("前三名行政區：")
+        #     for area, count in top3_no_bikes.items():
+        #         st.write(f"{area}：{count} 個站點")
 
-        nobike_display = no_bikes.rename(columns={
-            'sarea': '區域',
-            'sna': '站名',
-            'ar': '地址'
-        })
+        # nobike_display = no_bikes.rename(columns={
+        #     'sarea': '區域',
+        #     'sna': '站名',
+        #     'ar': '地址'
+        # })
 
-        # 只影響顯示
-        st.dataframe(nobike_display[['區域', '站名','地址']])
+        # # 只影響顯示
+        # st.dataframe(nobike_display[['區域', '站名','地址']])
 
         #st.dataframe(no_bikes[['sarea', 'sna', 'ar']])
 
     with col2:
         st.warning(f"🈵 無可還車位站點：{len(no_space)} 個")
-        if not top3_no_space.empty:
-            st.write("前三名行政區：")
-            for area, count in top3_no_space.items():
-                st.write(f"{area}：{count} 個站點")
+        st.plotly_chart(fig2, use_container_width=True)
+        # if not top3_no_space.empty:
+        #     st.write("前三名行政區：")
+        #     for area, count in top3_no_space.items():
+        #         st.write(f"{area}：{count} 個站點")
         #st.dataframe(no_space[['sarea', 'sna', 'ar']])
-        nospace_display = no_space.rename(columns={
-            'sarea': '區域',
-            'sna': '站名',
-            'ar': '地址'
-        })
+        # nospace_display = no_space.rename(columns={
+        #     'sarea': '區域',
+        #     'sna': '站名',
+        #     'ar': '地址'
+        # })
 
-        # 只影響顯示
-        st.dataframe(nospace_display[['區域', '站名','地址']])
+        # # 只影響顯示
+        # st.dataframe(nospace_display[['區域', '站名','地址']])
 
 
 
@@ -383,3 +443,25 @@ with col3:
 
     st.plotly_chart(fig, use_container_width=True,width=700)
 
+
+
+    # 整體借還統計圖
+    status_counts = {
+        "無車可借": len(no_bikes),
+        "無位可還": len(no_space),
+        "可正常借還": len(normal)
+    }
+    #把一個「字典 (dictionary)」轉成表格「DataFrame」
+    df_status = pd.DataFrame(list(status_counts.items()), columns=["狀態", "站點數"])
+
+    # 4️⃣ 畫圓餅圖
+    fig = px.pie(
+        df_status,
+        names="狀態",
+        values="站點數",
+        title="台北市 Ubike 即時可用狀況",
+        color_discrete_sequence=px.colors.qualitative.Safe#網頁安全色系
+    )
+
+    # 5️⃣ 顯示圖表
+    st.plotly_chart(fig, use_container_width=True)
