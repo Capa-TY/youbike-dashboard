@@ -219,7 +219,7 @@ with col1:
     if not df_top.empty:
     # 建立 Plotly 地圖
 
-        fig = px.scatter_mapbox(
+        fig = px.scatter_map(
             df_top,
             lat="latitude",
             lon="longitude",
@@ -249,16 +249,16 @@ with col1:
 
     # 更新地圖設置
         fig.update_layout(
-            mapbox_style="open-street-map",  # 使用開放街圖樣式
-            mapbox_zoom=13,  # 初始縮放級別
-            mapbox_center_lat = df_top['latitude'].mean(),
-            mapbox_center_lon = df_top['longitude'].mean(),
+            map_style="open-street-map",  # 使用開放街圖樣式
+            map_zoom=13,  # 初始縮放級別
+            map_center_lat = df_top['latitude'].mean(),
+            map_center_lon = df_top['longitude'].mean(),
             showlegend=False,
             # 🎨 顏色比例尺放到下方
             coloraxis_colorbar=dict(
                 title="可借車數",
                 orientation='h',  # 橫向排列
-                y=-0.2,          # 向下移動（可依需求微調 -0.3 ~ -0.15）
+                y=-0.35,          # 向下移動（可依需求微調 -0.3 ~ -0.15）
                 x=0.5,            # 水平置中
                 xanchor='center',
                 len=0.6,          # 比例尺長度
@@ -267,7 +267,7 @@ with col1:
         )
 
     # 顯示 Plotly 地圖
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
     else:
         st.warning("無可顯示的站點，請檢查過濾條件！")
 
@@ -319,7 +319,7 @@ with col3:
         no_space_count,
         names='區域',
         values='滿站數',
-        title=f"各區滿站比例）",
+        title=f"各區滿站比例",
         color_discrete_sequence=px.colors.qualitative.Pastel,
         #hole=0.4
     )
@@ -349,7 +349,7 @@ with col3:
     with col1:
         st.error(f"🚫 無可借車站點：{len(no_bikes)} 個")
         
-        st.plotly_chart(fig1, use_container_width=True)
+        st.plotly_chart(fig1, width='stretch')
         # if not top3_no_bikes.empty:
         #     st.write("前三名行政區：")
         #     for area, count in top3_no_bikes.items():
@@ -368,7 +368,7 @@ with col3:
 
     with col2:
         st.warning(f"🈵 無可還車位站點：{len(no_space)} 個")
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width='stretch')
         # if not top3_no_space.empty:
         #     st.write("前三名行政區：")
         #     for area, count in top3_no_space.items():
@@ -441,7 +441,7 @@ with col3:
         xaxis_tickangle=-45
     )
 
-    st.plotly_chart(fig, use_container_width=True,width=700)
+    st.plotly_chart(fig,width='stretch')
 
 
 
@@ -459,7 +459,7 @@ with col3:
         df_status,
         names="狀態",
         values="站點數",
-        title="臺北市 Ubike 即時可用狀況總覽",
+        title="臺北市 Ubike 站點即時可用狀況總覽",
         color_discrete_sequence=px.colors.qualitative.Safe#網頁安全色系
     )
 
@@ -468,5 +468,5 @@ with col3:
     fig.update_layout(#t 代表上方距離 (top)，增加就會讓文字往下移，避免被標題擋到b, l, r 分別是下、左、右距離
         margin=dict(t=200, b=50, l=50, r=50)  # t=上方距離
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
     
