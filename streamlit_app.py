@@ -219,7 +219,7 @@ with col1:
     if not df_top.empty:
     # 建立 Plotly 地圖
 
-        fig = px.scatter_map(
+        fig = px.scatter_mapbox(
             df_top,
             lat="latitude",
             lon="longitude",
@@ -249,10 +249,10 @@ with col1:
 
     # 更新地圖設置
         fig.update_layout(
-            map_style="open-street-map",  # 使用開放街圖樣式
-            map_zoom=13,  # 初始縮放級別
-            map_center_lat = df_top['latitude'].mean(),
-            map_center_lon = df_top['longitude'].mean(),
+            mapbox_style="open-street-map",  # 使用開放街圖樣式
+            mapbox_zoom=13,  # 初始縮放級別
+            mapbox_center_lat = df_top['latitude'].mean(),
+            mapbox_center_lon = df_top['longitude'].mean(),
             showlegend=False,
             # 🎨 顏色比例尺放到下方
             coloraxis_colorbar=dict(
