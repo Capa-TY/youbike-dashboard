@@ -258,7 +258,7 @@ with col1:
             coloraxis_colorbar=dict(
                 title="可借車數",
                 orientation='h',  # 橫向排列
-                y=-0.35,          # 向下移動（可依 需求微調 -0.3 ~ -0.15）
+                y=-0.15,          # 向下移動（可依 需求微調 -0.3 ~ -0.15）
                 x=0.5,            # 水平置中
                 xanchor='center',
                 len=0.6,          # 比例尺長度
