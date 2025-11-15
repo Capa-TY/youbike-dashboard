@@ -11,6 +11,8 @@ import math
 import plotly.graph_objects as go
 import plotly.express as px
 import os
+from google.cloud import firestore
+
 
 # def setup_font():
 #     system = platform.system()
@@ -58,32 +60,25 @@ for i in location:
     ci8 = i['weatherElement'][3]['time'][0]['parameter']['parameterName']    # 舒適度
     maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
 
-if int(pop8)>50:
+if int(pop8)>50:#下雨機率高提醒帶雨傘
     res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}，出門記得帶把傘☂️')
 else:
     res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
 
 #人數統計
-file_name = "total_peo.txt"
-# 如果檔案不存在就初始化
-if not os.path.exists(file_name):
-    with open(file_name, "w") as f:
-        f.write("0")
+db = firestore.Client()
+doc_ref=db.collection("totalepople").document("count_people")
+initial=2193#原本系統之瀏覽量 但計數之文檔消失
+# 讀取已有的 count
+doc = doc_ref.get()
+if not doc.exists:
+    doc_ref.set({"total": initial})
+    total_peo = initial
+else:
+    total = doc.to_dict().get("total", initial)
 
-# 讀取總數
-with open(file_name, "r") as f:
-    total_peo = int(f.read())
-
-# +1
-total_peo += 1
-
-# 回寫檔案
-with open(file_name, "w") as f:
-    f.write(str(total_peo))
-
-
-
-
+total_peo+=1
+doc_ref.set({"count":total_peo})
 
 # --------------------------
 # 讀取 CSV
