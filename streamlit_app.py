@@ -68,29 +68,6 @@ else:
     res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
 
 
-# --- 讀取 Streamlit Secrets ---
-try:
-    # 讀取整個 [firebase_key] 區塊，它會以字典形式傳回
-    firebase_config = st.secrets["firebase_key"]
-except KeyError:
-    # 這應該不會發生，除非您沒有在 Streamlit Secrets 介面設定
-    st.error("錯誤：未在 Streamlit Secrets 中找到 [firebase_key] 區塊。")
-    st.stop()
-if "private_key" in firebase_config:
-    # 這裡將字串中的 "\\n" 替換為實際的換行符 "\n"
-    firebase_config["private_key"] = firebase_config["private_key"].replace('\\n', '\n')
-# --- 初始化 Firebase ---
-if not firebase_admin._apps:
-    # 注意：這裡直接將 st.secrets 讀取的字典傳遞給 credentials.Certificate
-    cred = credentials.Certificate(firebase_config)
-    firebase_admin.initialize_app(cred)
-
-# 檢查是否已初始化，避免重複
-if not firebase_admin._apps:
-    cred = credentials.Certificate(firebase_config)
-    # 注意：Firestore 客戶端初始化不需要 databaseURL
-    firebase_admin.initialize_app(cred)
-
 
 
 #人數統計
