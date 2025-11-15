@@ -94,19 +94,18 @@ if not firebase_admin._apps:
 
 
 #人數統計
-db = firestore.Client()
-doc_ref=db.collection("totalepople").document("count_people")
-initial=2193#原本系統之瀏覽量 但計數之文檔消失
-# 讀取已有的 count
-doc = doc_ref.get()
-if not doc.exists:
-    doc_ref.set({"total": initial})
-    total_peo = initial
-else:
-    total = doc.to_dict().get("total", initial)
-
-total_peo+=1
-doc_ref.set({"count":total_peo})
+file_name = "total_peo.txt" # 如果檔案不存在就初始化 
+if not os.path.exists(file_name): 
+    with open(file_name, "w") as f: 
+        f.write("2194") #原本的總人數 但因計數器文檔消失重計
+    # 讀取總數 
+with open(file_name, "r") as f: 
+    total_peo = int(f.read()) 
+    # +1 
+total_peo += 1 
+# 回寫檔案 
+with open(file_name, "w") as f: 
+    f.write(str(total_peo))
 
 # --------------------------
 # 讀取 CSV
