@@ -76,7 +76,9 @@ except KeyError:
     # 這應該不會發生，除非您沒有在 Streamlit Secrets 介面設定
     st.error("錯誤：未在 Streamlit Secrets 中找到 [firebase_key] 區塊。")
     st.stop()
-    
+if "private_key" in firebase_config:
+    # 這裡將字串中的 "\\n" 替換為實際的換行符 "\n"
+    firebase_config["private_key"] = firebase_config["private_key"].replace('\\n', '\n')
 # --- 初始化 Firebase ---
 if not firebase_admin._apps:
     # 注意：這裡直接將 st.secrets 讀取的字典傳遞給 credentials.Certificate
