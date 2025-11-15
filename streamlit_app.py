@@ -11,7 +11,9 @@ import math
 import plotly.graph_objects as go
 import plotly.express as px
 import os
-from google.cloud import firestore
+import json
+import firebase_admin
+from firebase_admin import credentials,firestore
 
 
 # def setup_font():
@@ -64,6 +66,25 @@ if int(pop8)>50:#下雨機率高提醒帶雨傘
     res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}，出門記得帶把傘☂️')
 else:
     res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
+
+
+
+try:
+    # 這裡的名稱必須與您在 GitHub Secret 中設定的名稱一樣
+    key_json_string = os.environ['FIREBASE_SERVICE_ACCOUNT_JSON']
+    firebase_config = json.loads(key_json_string) 
+
+except KeyError:
+    # 提醒：如果本地測試，需要手動設定環境變數
+    raise Exception("錯誤：未找到 'FIREBASE_SERVICE_ACCOUNT_JSON' 環境變數。請確認已設定 GitHub Secrets。")
+
+# 檢查是否已初始化，避免重複
+if not firebase_admin._apps:
+    cred = credentials.Certificate(firebase_config)
+    # 注意：Firestore 客戶端初始化不需要 databaseURL
+    firebase_admin.initialize_app(cred)
+
+
 
 #人數統計
 db = firestore.Client()
