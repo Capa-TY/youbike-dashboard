@@ -68,15 +68,20 @@ else:
     res=(f'{city}未來 8 小時將『{wx8}』，最高溫 {maxt8} 度，最低溫 {mint8} 度，🌧️降雨機率 {pop8} %，體感{ci8}')
 
 
-
+# --- 讀取 Streamlit Secrets ---
 try:
-    # 這裡的名稱必須與您在 GitHub Secret 中設定的名稱一樣
-    key_json_string = os.environ['FIREBASE_SERVICE_ACCOUNT_JSON']
-    firebase_config = json.loads(key_json_string) 
-
+    # 讀取整個 [firebase_key] 區塊，它會以字典形式傳回
+    firebase_config = st.secrets["firebase_key"]
 except KeyError:
-    # 提醒：如果本地測試，需要手動設定環境變數
-    raise Exception("錯誤：未找到 'FIREBASE_SERVICE_ACCOUNT_JSON' 環境變數。請確認已設定 GitHub Secrets。")
+    # 這應該不會發生，除非您沒有在 Streamlit Secrets 介面設定
+    st.error("錯誤：未在 Streamlit Secrets 中找到 [firebase_key] 區塊。")
+    st.stop()
+    
+# --- 初始化 Firebase ---
+if not firebase_admin._apps:
+    # 注意：這裡直接將 st.secrets 讀取的字典傳遞給 credentials.Certificate
+    cred = credentials.Certificate(firebase_config)
+    firebase_admin.initialize_app(cred)
 
 # 檢查是否已初始化，避免重複
 if not firebase_admin._apps:
